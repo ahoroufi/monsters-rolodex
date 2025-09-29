@@ -1,3 +1,4 @@
+import {useState} from 'react';
 import './App.css';
 
 const Card = (props) => {
@@ -5,13 +6,23 @@ const Card = (props) => {
 }
 
 const App = () => {
-  const arr = ['a', 'b', 'c', 'd', 'e', 'f'];
+  const [arr, setArr] = useState(['a', 'b', 'c', 'd', 'e', 'f']); // twople
   return (
     <>
-      {arr.map((name, idx) => (
+      {arr.map((name, idx) => {
           // <Card name='a'></Card>
-          <Card key={`${name}-${idx}`} name={name}></Card>
-      ))}
+          return <Card key={`${name}-${idx}`} name={name}></Card>
+      })}
+
+      <button
+        onClick={
+          () => {
+            setArr((arr)=> [...arr, 'x']);
+          }
+        }
+      >
+        Add letter
+      </button>
     </>
   ) 
 }
