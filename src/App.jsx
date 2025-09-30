@@ -1,35 +1,33 @@
 import {useEffect, useState} from 'react';
 import './App.css';
 
-const Card = (props) => {
-  return <div>{props.name}</div>;
+const Card = ({name, email}) => {
+  return (
+    <div>
+      <h3>{name}</h3>
+      <p>{email}</p>
+    </div>
+  )
 }
 
 const App = () => {
-  const [arr, setArr] = useState(['a', 'b', 'c', 'd', 'e', 'f']); // twople
+  const [monsters, setMonsters] = useState([]); // twople
+  console.log(monsters)
 
   useEffect(() => {
-    console.log('running side effects');
+    fetch('https://jsonplaceholder.typicode.com/users')
+      .then((response) => response.json())
+      .then((data) => setMonsters(data))
   }, [])
 
   return (
     <>
-      {arr.map((name, idx) => {
+      {monsters.map(({name, email}, idx) => {
           // <Card name='a'></Card>
-          return <Card key={`${name}-${idx}`} name={name}></Card>
+          return <Card key={`${name}-${idx}`} name={name} email={email}></Card>
       })}
-
-      <button
-        onClick={
-          () => {
-            setArr((arr)=> [...arr, 'x']);
-          }
-        }
-      >
-        Add letter
-      </button>
     </>
-  ) 
-}
+  ); 
+};
 
 export default App;
