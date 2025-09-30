@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import './App.css';
 
 const Card = (props) => {
@@ -7,6 +7,11 @@ const Card = (props) => {
 
 const App = () => {
   const [arr, setArr] = useState(['a', 'b', 'c', 'd', 'e', 'f']); // twople
+
+  useEffect(() => {
+    console.log('running side effects');
+  }, [])
+
   return (
     <>
       {arr.map((name, idx) => {
